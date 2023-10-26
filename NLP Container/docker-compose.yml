@@ -1,0 +1,31 @@
+version: '3'
+services:
+  # PostgreSQL database container
+  db:
+    image: postgres:latest
+    container_name: DBContainer
+    environment:
+      POSTGRES_DB: tasks_db
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"  # Map the PostgreSQL container port to the host
+
+  # Python application container
+  app:
+    # build: ./  # Replace with the path to your Python app code
+    image: virtual_assistant_application
+    container_name: vir_asst_app
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db  # This is the hostname of the PostgreSQL container within the Docker network
+    command: python -i app.py  # Add the -i option to run Python in interactive mode
+    stdin_open: true
+    tty: true
+
+  # docker-compose up -d
+  # docker-compose exec app python3 -i app.py
+  # docker exec -it DBContainer bash
+  # psql -U singh123 -d tasks_db
+  # select * from reminders
