@@ -13,8 +13,8 @@ services:
 
   # Python application container
   app:
-    # build: ./  # Replace with the path to your Python app code
-    image: virtual_assistant_application
+    build: ./  # Replace with the path to your Python app code
+    # image: virtual_assistant_application
     container_name: vir_asst_app
     depends_on:
       - db

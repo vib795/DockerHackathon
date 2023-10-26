@@ -47,3 +47,4 @@ urllib3
 wasabi
 weasel
 yarl
+apscheduler
