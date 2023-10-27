@@ -19,25 +19,4 @@ RUN apt install -y portaudio19-dev python3-pyaudio
 RUN pip install -r requirements.txt
 RUN pip install python-dotenv
 
-
-# ARG DEBIAN_FRONTEND=noninteractive
-# RUN apt-get install -y \
-#     espeak \
-#     vorbis-tools \
-#     sox \
-#     alsa-utils \
-#     libasound2 \
-#     libasound2-plugins \
-#     pulseaudio \
-#     pulseaudio-utils \
-#     --no-install-recommends \
-#     && rm -rf /var/lib/apt/lists/*
-
-# ENV HOME /home/tttool
-# RUN useradd --create-home --home-dir $HOME tttool \
-#     && usermod -aG audio,pulse,pulse-access tttool \
-#     && chown -R tttool:tttool $HOME
-
-# RUN apt-get install -y alsa-base alsa-utils libsndfile1-dev && apt-get clean
-
 ENTRYPOINT [ "python3", "app.py" ]

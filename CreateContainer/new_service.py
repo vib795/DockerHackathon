@@ -33,26 +33,11 @@ def voice_assistant():
             try:
                 if re.search(r'\bremind(er|s|ing)?\b', query.lower(), re.IGNORECASE):
                     date, time = extract_reminder_info(query.lower())
-                    logging.info(f"DATE: {str(date).split()[0]}. TIME: {str(time).split()[-1]}")
+                    # print(f"DATE AND TIME: {date} {time}")
+                    # print(f"DATE: {str(date).split()[0]}. TIME: {str(time).split()[1]}")
+                    # print(f"DATE: {str(date).split()[0]}. TIME: {str(time).split()[-1]}")
                 
-                    response = openai.ChatCompletion.create(
-                        # model="gpt-4",
-                        model="gpt-3.5-turbo",
-                        messages=[
-                            {
-                                "role": "system",
-                                "content": SYSTEM_INSTRUCTION,
-                            },
-                            {
-                                "role": "user",
-                                "content": query,
-                            }
-                        ],
-                        max_tokens=4000,
-                        n=1,
-                        stop=None,
-                        temperature=1,
-                    )   
+                    response =  get_opeai_respose(query)  
                     print(f'ChatGPT response: {response}')
                     message = response.choices[0].message.content.strip()
                     if date and time:
@@ -68,6 +53,8 @@ def voice_assistant():
                         return reminders
                     else:
                         return "No reminders found."
+                else:
+                    return get_opeai_respose(query).choices[0].message.content.strip()
             except Exception as e:
                 logging.error(f"Error occurred in contacting GPT assistant. - {str(e)}")
                 raise Exception(f"Error occurred in contacting GPT assistant. - {str(e)}")
@@ -95,6 +82,26 @@ def voice_assistant():
         logging.error(f"Error occurred in listening. - {str(e)}")
         raise Exception
 
+def get_opeai_respose(query):
+    return openai.ChatCompletion.create(
+                        # model="gpt-4",
+                        model="gpt-3.5-turbo",
+                        messages=[
+                            {
+                                "role": "system",
+                                "content": SYSTEM_INSTRUCTION,
+                            },
+                            {
+                                "role": "user",
+                                "content": query,
+                            }
+                        ],
+                        max_tokens=4000,
+                        n=1,
+                        stop=None,
+                        temperature=1,
+                    )
+
 # Schedule the job to check for due reminders and trigger alerts every minute
 scheduler.add_job(
     check_and_trigger_alerts,
@@ -118,7 +125,8 @@ def extract_reminder_info(text):
     # If date is not found, assume it's for today
     if date is None:
         date = datetime.now()
-
+    print(f"DATE: {date}")
+    print(f"TIME: {time}")
     return date, time
 
 

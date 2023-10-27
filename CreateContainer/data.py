@@ -7,6 +7,7 @@ import logging
 from dotenv import load_dotenv
 import os
 from datetime import timedelta
+import re
 
 # Load environment variables
 load_dotenv()
@@ -22,7 +23,18 @@ class Reminder(Base):
     date = Column(String, nullable=True)
     time = Column(String, nullable=True)
     timestamp = Column(DateTime, default=datetime.utcnow, nullable=False)
-    trigger_time = Column(DateTime, nullable=True)  # New field for trigger time
+    trigger_time = Column(DateTime, nullable=False)  # New field for trigger time
+
+def sanitize_time(time_str):
+    # Use regular expressions to match the 'HH:MM' format
+    time_pattern = r'\d{1,2}:\d{2}'
+    match = re.search(time_pattern, time_str)
+
+    if match:
+        return match.group()
+    else:
+        # Handle invalid time format
+        raise ValueError("Invalid time format. Please use 'HH:MM' format.")
 
 def create_session():
     try:
@@ -62,15 +74,19 @@ def check_and_trigger_alerts():
 
 
 # Example of inserting a reminder with a trigger time
-def insert_reminder(text, date, time, trigger_time):
+def insert_reminder(text, date, time):
     try:
+        # print(f"DATE AND TIME: {date} {time}")
         # Parse the date and time strings into datetime objects
         reminder_date = datetime.strptime(date, '%Y-%m-%d')
-        reminder_time = datetime.strptime(time, '%H:%M')
+        reminder_time = datetime.strptime(time, '%H:%M:%S')
         trigger_time = datetime(reminder_date.year, reminder_date.month, reminder_date.day, reminder_time.hour, reminder_time.minute) - timedelta(hours=1)
         Session = create_session()  # Create a session class, not an instance
         session = Session()  # Create a session instance
         reminder = Reminder(text=text, date=date, time=time, timestamp=datetime.utcnow(), trigger_time=trigger_time)
+        print(f"*********************************************************************************")
+        print(f"Inserting reminder: {reminder.text}, {reminder.date}, {reminder.time}, {reminder.timestamp}, {reminder.trigger_time}")
+        print(f"*********************************************************************************")
         session.add(reminder)
         session.commit()
         session.close()
