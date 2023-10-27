@@ -2,7 +2,7 @@ version: '3'
 services:
   # PostgreSQL database container
   db:
-    image: postgres:11-alpine
+    image: postgres:latest
     container_name: DatabaseContainer
     environment:
       POSTGRES_DB: tasks_db
@@ -28,21 +28,21 @@ services:
     volumes:
       - ./app_code:/app_code  # Mount your Python app code as a volume
 
-  getapp:
-    # build: ./  # Replace with the path to your Python app code
-    image: get_reminders
-    container_name: get_reminders
-    depends_on:
-      - db
-    environment:
-      DB_HOST: db  # This is the hostname of the PostgreSQL container within the Docker network
-    command: python -i app.py  # Add the -i option to run Python in interactive mode
-    stdin_open: true
-    tty: true
-    volumes:
-      - ./app_code:/app_code  # Mount your Python app code as a volume
-volumes:
-  db_data_new:
+#  getapp:
+#    # build: ./  # Replace with the path to your Python app code
+#    image: get_reminders
+#    container_name: get_reminders
+#    depends_on:
+#      - db
+#    environment:
+#      DB_HOST: db  # This is the hostname of the PostgreSQL container within the Docker network
+#    command: python -i app.py  # Add the -i option to run Python in interactive mode
+#    stdin_open: true
+#    tty: true
+#    volumes:
+#      - ./app_code:/app_code  # Mount your Python app code as a volume
+#volumes:
+#  db_data_new:
 
   # docker build . -t virtual_assistant_application
   # docker-compose up -d
