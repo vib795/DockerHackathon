@@ -3,7 +3,7 @@ services:
   # PostgreSQL database container
   db:
     image: postgres:latest
-    container_name: DBContainer
+    container_name: DatabaseContainer
     environment:
       POSTGRES_DB: tasks_db
       POSTGRES_USER: ${DB_USER}
@@ -47,6 +47,6 @@ volumes:
   # docker build . -t virtual_assistant_application
   # docker-compose up -d
   # docker-compose exec app python3 -i app.py
-  # docker exec -it DBContainer bash
+  # docker exec -it DatabaseContainer bash
   # psql -U singh123 -d tasks_db
   # select * from reminders
