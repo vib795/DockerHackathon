@@ -3,12 +3,10 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
 import logging
-from dotenv import load_dotenv
 import os
 
 
 # Load environment variables
-load_dotenv()
 
 Base = declarative_base()
 
