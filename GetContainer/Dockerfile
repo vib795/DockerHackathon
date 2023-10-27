@@ -15,8 +15,6 @@ COPY requirements.txt /opt/source_code/requirements.txt
 COPY . /opt/source_code/
 WORKDIR /opt/source_code
 
-RUN apt install -y portaudio19-dev python3-pyaudio
 RUN pip install -r requirements.txt
-RUN pip install python-dotenv
 
 ENTRYPOINT [ "python3", "app.py" ]

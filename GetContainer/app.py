@@ -2,6 +2,7 @@ import logging
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 from data import check_and_trigger_alerts
+
 # Initialize the scheduler
 scheduler = BackgroundScheduler()
 scheduler.start()
@@ -15,6 +16,7 @@ def app():
         id='check_due_reminders',
         replace_existing=True
     )
+
 
 if __name__ == "__main__":
     try:

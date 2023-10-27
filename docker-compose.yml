@@ -14,7 +14,21 @@ services:
       - db_data:/var/lib/postgresql/data  # Use the named volume for PostgreSQL data
 
   # Python application container
-  app:
+  createapp:
+    # build: ./  # Replace with the path to your Python app code
+    image: virtual_assistant_application
+    container_name: vir_asst_app
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db  # This is the hostname of the PostgreSQL container within the Docker network
+    command: python -i app.py  # Add the -i option to run Python in interactive mode
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./app_code:/app_code  # Mount your Python app code as a volume
+
+  getapp:
     # build: ./  # Replace with the path to your Python app code
     image: get_reminders
     container_name: get_reminders
@@ -27,7 +41,6 @@ services:
     tty: true
     volumes:
       - ./app_code:/app_code  # Mount your Python app code as a volume
-
 volumes:
   db_data:
 
