@@ -16,8 +16,8 @@ services:
   # Python application container
   createapp:
     # build: ./  # Replace with the path to your Python app code
-    image: virtual_assistant_application
-    container_name: vir_assist_app
+    image: create_reminders
+    container_name: create_reminders
     depends_on:
       - db
     environment:

@@ -1,7 +1,8 @@
 import logging
 from new_service import voice_assistant
 
-logging.basicConfig(filename='logger.log', encoding='utf-8', level=logging.DEBUG, filemode='w')
+logging.basicConfig(filename='logger.log', level=logging.INFO, format='%(asctime)s %(levelname)s %(threadName)-10s %('
+                                                                      'message)s',)
 
 def app():
     voice_assistant()

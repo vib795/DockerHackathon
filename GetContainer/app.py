@@ -2,11 +2,13 @@ import logging
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 from data import check_and_trigger_alerts
+
+logging.basicConfig(filename='logger.log', level=logging.INFO, format='%(asctime)s %(levelname)s %(threadName)-10s %('
+                                                                      'message)s',)
+
 # Initialize the scheduler
 scheduler = BackgroundScheduler()
 scheduler.start()
-logging.basicConfig(filename='logger.log', encoding='utf-8', level=logging.DEBUG, filemode='w')
-
 
 def app():
     scheduler.add_job(
