@@ -2,7 +2,7 @@ version: '3'
 services:
   # PostgreSQL database container
   db:
-    image: postgres:11-alpine
+    image: postgres:latest
     container_name: DBContainer
     environment:
       POSTGRES_DB: tasks_db
@@ -17,7 +17,7 @@ services:
   app:
     # build: ./  # Replace with the path to your Python app code
     image: get_reminders
-    container_name: get_reminders
+    container_name: get_reminders_from_folder
     depends_on:
       - db
     environment:
