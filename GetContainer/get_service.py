@@ -3,7 +3,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 
 
-def setup_scheduler(check_and_trigger_alerts):
+def setup_scheduler():
     scheduler = BackgroundScheduler()
     scheduler.start()
 
