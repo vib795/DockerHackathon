@@ -17,7 +17,7 @@ services:
   createapp:
     # build: ./  # Replace with the path to your Python app code
     image: virtual_assistant_application
-    container_name: vir_asst_app
+    container_name: vir_assist_app
     depends_on:
       - db
     environment:
