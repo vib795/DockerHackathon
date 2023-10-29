@@ -15,8 +15,8 @@ services:
 
   # Python application container
   createapp:
-    # build: ./  # Replace with the path to your Python app code
-    image: create_reminders_app
+    build:
+      context: ./CreateContainer  # Specify the path to the Dockerfile and build context
     container_name: create_reminders_app
     depends_on:
       - db
@@ -25,12 +25,10 @@ services:
     command: python -i app.py  # Add the -i option to run Python in interactive mode
     stdin_open: true
     tty: true
-#    volumes:
-#      - ./create_app_code:/app_code  # Mount your Python app code as a volume
 
   getapp:
-    # build: ./  # Replace with the path to your Python app code
-    image: get_reminders_app
+    build:
+      context: ./GetContainer  # Specify the path to the Dockerfile and build context
     container_name: get_reminders_app
     depends_on:
       - db
@@ -39,10 +37,10 @@ services:
     command: python -i app.py  # Add the -i option to run Python in interactive mode
     stdin_open: true
     tty: true
-#    volumes:
-#      - ./get_app_code:/app_code  # Mount your Python app code as a volume
+
 volumes:
   database_data:
+
 
   # docker build . -t virtual_assistant_application
   # docker-compose up -d
