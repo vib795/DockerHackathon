@@ -30,8 +30,8 @@ services:
 
   getapp:
     # build: ./  # Replace with the path to your Python app code
-    image: get_reminders
-    container_name: get_reminders
+    image: get_reminders_app
+    container_name: get_reminders_app
     depends_on:
       - db
     environment:
