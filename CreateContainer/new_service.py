@@ -6,7 +6,7 @@ import spacy
 from dateutil import parser
 from datetime import datetime
 from dotenv import load_dotenv
-from data import insert_reminder, get_reminders
+from data import insert_reminder
 
 load_dotenv()
 # OpenAI API credentials
