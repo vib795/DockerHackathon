@@ -6,13 +6,13 @@ import spacy
 from dateutil import parser
 from datetime import datetime
 from dotenv import load_dotenv
-from data import insert_reminder, get_reminders, check_and_trigger_alerts
+from data import insert_reminder, get_reminders
 
-from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.triggers.cron import CronTrigger
-# Initialize the scheduler
-scheduler = BackgroundScheduler()
-scheduler.start()
+# from apscheduler.schedulers.background import BackgroundScheduler
+# from apscheduler.triggers.cron import CronTrigger
+# # Initialize the scheduler
+# scheduler = BackgroundScheduler()
+# scheduler.start()
 
 
 load_dotenv()
@@ -33,9 +33,6 @@ def voice_assistant():
             try:
                 if re.search(r'\bremind(er|s|ing)?\b', query.lower(), re.IGNORECASE):
                     date, time = extract_reminder_info(query.lower())
-                    # print(f"DATE AND TIME: {date} {time}")
-                    # print(f"DATE: {str(date).split()[0]}. TIME: {str(time).split()[1]}")
-                    # print(f"DATE: {str(date).split()[0]}. TIME: {str(time).split()[-1]}")
                 
                     response =  get_opeai_respose(query)  
                     print(f'ChatGPT response: {response}')
@@ -49,7 +46,6 @@ def voice_assistant():
                     # Fetch reminders from the database here
                     reminders = get_reminders()
                     if reminders:
-                        # return "\n".join(reminders)
                         return reminders
                     else:
                         return "No reminders found."
@@ -102,13 +98,13 @@ def get_opeai_respose(query):
                         temperature=1,
                     )
 
-# Schedule the job to check for due reminders and trigger alerts every minute
-scheduler.add_job(
-    check_and_trigger_alerts,
-    trigger=CronTrigger(second='0'),  # Runs every minute
-    id='check_due_reminders',
-    replace_existing=True
-)
+# # Schedule the job to check for due reminders and trigger alerts every minute
+# scheduler.add_job(
+#     check_and_trigger_alerts,
+#     trigger=CronTrigger(second='0'),  # Runs every minute
+#     id='check_due_reminders',
+#     replace_existing=True
+# )
 
 def extract_reminder_info(text):
     doc = nlp(text)
@@ -131,11 +127,11 @@ def extract_reminder_info(text):
 
 
 # Main program loop
-while True:
-    try:
-        voice_assistant()
-    except KeyboardInterrupt:
-        break
-    finally:
-        # Shut down the scheduler gracefully on program exit
-        scheduler.shutdown()
+# while True:
+#     try:
+#         voice_assistant()
+#     except KeyboardInterrupt:
+#         break
+#     finally:
+#         # Shut down the scheduler gracefully on program exit
+#         scheduler.shutdown()
