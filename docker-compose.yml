@@ -2,10 +2,10 @@ version: '3'
 services:
   # PostgreSQL database container
   db:
-    image: postgres:latest
-    container_name: DatabaseContainer
+    image: postgres
+    container_name: DBContainer
     environment:
-      POSTGRES_DB: reminders_db
+      POSTGRES_DB: tasks_db
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
@@ -26,6 +26,8 @@ services:
     command: python -i app.py  # Add the -i option to run Python in interactive mode
     stdin_open: true
     tty: true
+    volumes:
+      - ./app_code:/app_code  # Mount your Python app code as a volume
 
 #  getapp:
 #    build:
