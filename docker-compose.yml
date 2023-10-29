@@ -15,8 +15,9 @@ services:
 
   # Python application container
   createapp:
-    build:
-      context: ./CreateContainer  # Specify the path to the Dockerfile and build context
+#    build:
+#      context: ./CreateContainer  # Specify the path to the Dockerfile and build context
+    image: create_reminders_app
     container_name: create_reminders_app
     depends_on:
       - db
