@@ -5,10 +5,10 @@ from datetime import datetime
 import logging
 import os
 
-
 # Load environment variables
 
 Base = declarative_base()
+
 
 # Define the Reminder model
 class Reminder(Base):
@@ -41,10 +41,12 @@ def create_session():
         logging.error(f"Error occurred in creating DB session. - {str(e)}")
         raise Exception(f"Error occurred in creating DB session. - {str(e)}")
 
+
 # Function to trigger alerts for reminders
 def trigger_alert(reminder):
     # Implement code to trigger an alert at the specified time for the reminder
     print(f"Alert for Reminder: {reminder.text} \n")
+
 
 # Function to check for due reminders and trigger alerts
 def check_and_trigger_alerts():
@@ -56,4 +58,3 @@ def check_and_trigger_alerts():
     for reminder in due_reminders:
         trigger_alert(reminder)
         # You may want to mark the reminder as "notified" to avoid re-triggering it.
-
