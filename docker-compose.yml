@@ -11,7 +11,7 @@ services:
     ports:
       - "5432:5432"  # Map the PostgreSQL container port to the host
     volumes:
-      - ./database_data:/var/lib/postgresql/data  # Use the named volume for PostgreSQL data
+      - reminders_data:/var/lib/postgresql/data  # Use the named volume for PostgreSQL data
 
   # Python application container
   createapp:
@@ -40,7 +40,7 @@ services:
     tty: true
 
 volumes:
-  database_data:
+  reminders_data:
 
 
   # docker build . -t virtual_assistant_application
