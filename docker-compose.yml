@@ -48,6 +48,6 @@ volumes:
   # docker-compose up -d
   # docker-compose exec createapp python3 -i app.py
   # docker-compose exec getapp python3 -i app.py
-  # docker exec -it DatabaseContainer bash
+  # docker exec -it DatabaseContainer reminders_db
   # psql -U singh123 -d tasks_db
-  # select * from reminders
+  # select * from reminders;

@@ -8,13 +8,6 @@ from datetime import datetime
 from dotenv import load_dotenv
 from data import insert_reminder, get_reminders
 
-# from apscheduler.schedulers.background import BackgroundScheduler
-# from apscheduler.triggers.cron import CronTrigger
-# # Initialize the scheduler
-# scheduler = BackgroundScheduler()
-# scheduler.start()
-
-
 load_dotenv()
 # OpenAI API credentials
 openai.api_key = os.getenv('OPENAPI_KEY')
@@ -98,14 +91,6 @@ def get_opeai_respose(query):
                         temperature=1,
                     )
 
-# # Schedule the job to check for due reminders and trigger alerts every minute
-# scheduler.add_job(
-#     check_and_trigger_alerts,
-#     trigger=CronTrigger(second='0'),  # Runs every minute
-#     id='check_due_reminders',
-#     replace_existing=True
-# )
-
 def extract_reminder_info(text):
     doc = nlp(text)
     
@@ -124,14 +109,3 @@ def extract_reminder_info(text):
     print(f"DATE: {date}")
     print(f"TIME: {time}")
     return date, time
-
-
-# Main program loop
-# while True:
-#     try:
-#         voice_assistant()
-#     except KeyboardInterrupt:
-#         break
-#     finally:
-#         # Shut down the scheduler gracefully on program exit
-#         scheduler.shutdown()
